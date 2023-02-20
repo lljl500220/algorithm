@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<div style="width: 120px;height: 120px;background-color: red" id="drag1" draggable="true" ondragstart="drag(event)"></div>
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("Text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("Text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+
+    window.onscroll = function (ev) {
+        console.log(1)
+    }
+    window.addEventListener("scroll", function (ev) {
+        console.log(2)
+    })
+</script>
+<style>
+    #div1 {
+        width: 350px;
+        height: 270px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+    }
+</style>
+</body>
+</html>
