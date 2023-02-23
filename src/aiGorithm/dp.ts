@@ -118,4 +118,7 @@ const completely3 = (num: number, weight: number): number[] => {
     }
     return dp
 }
-console.log(completely3(5,10))
+// console.log(completely3(5,10))
+
+//多重背包
+//多重背包问题

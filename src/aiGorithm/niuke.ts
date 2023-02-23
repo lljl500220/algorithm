@@ -476,14 +476,14 @@ function evaluateTree(root: TreeNode): boolean {
 
 //leetcode 97 所有子集
 function subsets(nums: number[]): number[][] {
-    let path:number[] = [] //定义回溯队列
-    let result:number[][] = [] //结果
-    const backtrack = (start:number) => {
+    let path: number[] = [] //定义回溯队列
+    let result: number[][] = [] //结果
+    const backtrack = (start: number) => {
         result.push([...path]) //每次回溯成功后将当前队列解构至结果集
-        if(start>nums.length) return
+        if (start > nums.length) return
         for (let i = start; i < nums.length; i++) {
             path.push(nums[i]) //当前选择的结果集
-            backtrack(i+1) //递归
+            backtrack(i + 1) //递归
             path.pop() //回溯
         }
     }
@@ -494,19 +494,19 @@ function subsets(nums: number[]): number[][] {
 // console.log(subsets([1, 2, 3]));
 
 //小米面试 两个数的乘积
-const twoNumRide = (num1:string,num2:string):string =>{
-    return  (parseInt(num1) * parseInt(num2)).toString()
+const twoNumRide = (num1: string, num2: string): string => {
+    return (parseInt(num1) * parseInt(num2)).toString()
 }
 
 var callbacks = []
 for (let i = 0; i < 4; i++) {
-    callbacks.push(function() {
+    callbacks.push(function () {
         console.log(i);
     });
 }
 // callbacks.forEach(cb => cb())
 
-const array1 = [1,3,5,1,2]
+const array1 = [1, 3, 5, 1, 2]
 // array1.sort((a,b)=>{
 //     // return a - b  正序
 //     return b - a //倒序
@@ -525,21 +525,21 @@ let str1 = "Str1d"
 //
 // console.log(3%2)
 
-const multiples = (num:number):string => {
+const multiples = (num: number): string => {
     let path = 2;
     let res = ""
-    while (path <= num && path*path <= num){
+    while (path <= num && path * path <= num) {
         debugger
-        if (num % path === 0){
-            res+= ` ${path}`
+        if (num % path === 0) {
+            res += ` ${path}`
             num /= path
             path = 2
-        }else {
+        } else {
             path++
         }
     }
-    if (num !== 1){
-        res+= ` ${num}`
+    if (num !== 1) {
+        res += ` ${num}`
     }
     return res
 }
@@ -576,19 +576,19 @@ let str3 = "bca"
  */
 
 //数据矩阵
-const dpTable:number[][] = [
-    [6,2],
-    [3,2],
-    [5,6],
-    [4,5],
+const dpTable: number[][] = [
+    [6, 2],
+    [3, 2],
+    [5, 6],
+    [4, 5],
 ]
 
 //动态规划
-const dpFun = (arrNum:number[][],weight:number):number[][] =>{
-    let dp:number[][] = [] //定义记录过程的二维数组
-    let v:number[] = [] //物品价值数组
-    let w:number[] = [] //物品重量数组
-    arrNum.forEach(item=>{ //初始化重量和价值
+const dpFun = (arrNum: number[][], weight: number): number[][] => {
+    let dp: number[][] = [] //定义记录过程的二维数组
+    let v: number[] = [] //物品价值数组
+    let w: number[] = [] //物品重量数组
+    arrNum.forEach(item => { //初始化重量和价值
         v.push(item[0])
         w.push(item[1])
     })
@@ -598,22 +598,23 @@ const dpFun = (arrNum:number[][],weight:number):number[][] =>{
     }
     for (let i = 0; i < w.length; i++) { //总共有w.lenght个物品，所以创建迭代
         for (let j = 0; j <= weight; j++) { //有边界，因为传入重量后从0开始计算的，所有最后也要计算一次边界
-            if (i === 0){
-                dp[i][j] = j < w[i]?0:v[i] //第一行特殊处理，此处可以优化为先添加-1行，这个if可以省略
-            }else {
-                if (j < w[i]){
-                    dp[i][j] = dp[i-1][j] //第二行及之后，如果容量不如物品重量，则去之前计算出的最优解
-                }else {
+            if (i === 0) {
+                dp[i][j] = j < w[i] ? 0 : v[i] //第一行特殊处理，此处可以优化为先添加-1行，这个if可以省略
+            } else {
+                if (j < w[i]) {
+                    dp[i][j] = dp[i - 1][j] //第二行及之后，如果容量不如物品重量，则去之前计算出的最优解
+                } else {
                     //如果重量小于背包容量
                     //1.相较于上一次的最优解，当前剩余容量能否装得下当前物品
                     //2.装不下则找到能装下当前物品的上一个最优解，装下之后与不装当前物品的最优解做比较
-                    dp[i][j] = Math.max(dp[i-1][j],dp[i-1][j-w[i]]+v[i])
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i])
                 }
             }
         }
     }
     return dp
 }
+
 // console.log(dpFun(dpTable,8))
 
 class tdArray {
@@ -644,23 +645,23 @@ class tdArray {
 }
 
 const dpData2 = [
-    [6,2],
-    [3,2],
-    [5,6],
-    [4,5],
+    [6, 2],
+    [3, 2],
+    [5, 6],
+    [4, 5],
 ]
-const dpFun2 = ():number[][] =>{
-    const n = 4,m = 8
-    const v = [6,3,5,4],w=[2,2,6,5]
-    let dp = new tdArray(4,8).array
+const dpFun2 = (): number[][] => {
+    const n = 4, m = 8
+    const v = [6, 3, 5, 4], w = [2, 2, 6, 5]
+    let dp = new tdArray(4, 8).array
     for (let i = 0; i < n; i++) {
         for (let j = w[i]; j <= m; j++) {
-            if (i===0){
-                dp[i][j] = j>=w[i]?v[i]:0
-            }else {
-                dp[i][j] = dp[i-1][j]
-                if (j>=w[i]){
-                    dp[i][j] = Math.max(dp[i-1][j],dp[i-1][j-w[i]]+v[i])
+            if (i === 0) {
+                dp[i][j] = j >= w[i] ? v[i] : 0
+            } else {
+                dp[i][j] = dp[i - 1][j]
+                if (j >= w[i]) {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i])
                 }
             }
         }
@@ -668,30 +669,30 @@ const dpFun2 = ():number[][] =>{
     return dp
 }
 
-const dpFun3 = ():number[] =>{
-    const n = 4,m = 8
-    const v = [6,3,5,4],w=[2,2,6,5]
-    let dp:any = new Array(10).fill(0)
+const dpFun3 = (): number[] => {
+    const n = 4, m = 8
+    const v = [6, 3, 5, 4], w = [2, 2, 6, 5]
+    let dp: any = new Array(10).fill(0)
     for (let i = 0; i < n; i++) {
         for (let j = w[i]; j <= m; j++) {
-            dp[j] = Math.max(dp[j],dp[j-w[i]]+v[i])
+            dp[j] = Math.max(dp[j], dp[j - w[i]] + v[i])
         }
     }
     return dp
 }
 
-console.log(dpFun3());
+// console.log(dpFun3());
 
 
-const dpt = new tdArray(5,3)
+const dpt = new tdArray(5, 3)
 // console.log(dpt.array)
 
-const dpTable2:number[][] = [
-    [810,2,0],
-    [410,5,1],
-    [310,5,1],
-    [410,3,0],
-    [510,2,0]
+const dpTable2: number[][] = [
+    [810, 2, 0],
+    [410, 5, 1],
+    [310, 5, 1],
+    [410, 3, 0],
+    [510, 2, 0]
 ]
 const H16 = (money: number, num: number, data: number[][]) => {
     //money是传统背包问题的容量
@@ -701,26 +702,26 @@ const H16 = (money: number, num: number, data: number[][]) => {
     let value = []
     let wv = []
     for (let i = 0; i < num; i++) {
-        value.push([0,0,0])
-        wv.push([0,0,0])
+        value.push([0, 0, 0])
+        wv.push([0, 0, 0])
     }
     for (let i = 0; i < num; i++) {
-        if (data[i][2] === 0){
+        if (data[i][2] === 0) {
             value[i][0] = data[i][0]
-            wv[i][0] = data[i][0]*data[i][1]
-        }else {
-            let index = data[i][2]-1
-            if (value[index][1] === 0){
+            wv[i][0] = data[i][0] * data[i][1]
+        } else {
+            let index = data[i][2] - 1
+            if (value[index][1] === 0) {
                 value[index][1] = data[i][0]
-                wv[index][1] = data[i][0]*data[i][1]
-            }else {
+                wv[index][1] = data[i][0] * data[i][1]
+            } else {
                 value[index][2] = data[i][0]
-                wv[index][2] = data[i][0]*data[i][1]
+                wv[index][2] = data[i][0] * data[i][1]
             }
         }
     }
     //定义dp数组，开始做动态规划
-    let dp = new tdArray(num,money).array
+    let dp = new tdArray(num, money).array
     for (let i = 0; i < num; i++) {
         let v0 = value[i][0]
         let v1 = value[i][1]
@@ -728,23 +729,172 @@ const H16 = (money: number, num: number, data: number[][]) => {
         let wv0 = wv[i][0]
         let wv1 = wv[i][1]
         let wv2 = wv[i][2]
-        if (i === 0){
+        if (i === 0) {
             for (let j = 0; j <= money; j++) {
-                dp[i][j] =  j>=v0?wv0:0
-                dp[i][j] =  j>=v0+v1?wv0+wv1:dp[i][j]
-                dp[i][j] =  j>=v0+v2?wv0+wv2:dp[i][j]
-                dp[i][j] =  j>=v0+v1+v2?wv0+wv1+wv2:dp[i][j]
+                dp[i][j] = j >= v0 ? wv0 : 0
+                dp[i][j] = j >= v0 + v1 ? wv0 + wv1 : dp[i][j]
+                dp[i][j] = j >= v0 + v2 ? wv0 + wv2 : dp[i][j]
+                dp[i][j] = j >= v0 + v1 + v2 ? wv0 + wv1 + wv2 : dp[i][j]
             }
-        }else {
+        } else {
             for (let j = 0; j <= money; j++) {
-                dp[i][j] =  j>=v0?Math.max(dp[i-1][j],dp[i-1][j-v0]+wv0):dp[i-1][j]
-                dp[i][j] =  j>=v0+v1?Math.max(dp[i-1][j],dp[i-1][j-v1-v0]+wv1+wv0):dp[i-1][j]
-                dp[i][j] =  j>=v0+v2?Math.max(dp[i-1][j],dp[i-1][j-v2-v0]+wv2+wv0):dp[i-1][j]
-                dp[i][j] =  j>=v0+v2+v1?Math.max(dp[i-1][j],dp[i-1][j-v2-v0-v2]+wv2+wv0+wv1):dp[i-1][j]
+                dp[i][j] = j >= v0 ? Math.max(dp[i - 1][j], dp[i - 1][j - v0] + wv0) : dp[i - 1][j]
+                dp[i][j] = j >= v0 + v1 ? Math.max(dp[i - 1][j], dp[i - 1][j - v1 - v0] + wv1 + wv0) : dp[i - 1][j]
+                dp[i][j] = j >= v0 + v2 ? Math.max(dp[i - 1][j], dp[i - 1][j - v2 - v0] + wv2 + wv0) : dp[i - 1][j]
+                dp[i][j] = j >= v0 + v2 + v1 ? Math.max(dp[i - 1][j], dp[i - 1][j - v2 - v0 - v2] + wv2 + wv0 + wv1) : dp[i - 1][j]
             }
         }
     }
-    console.log(dp[num-1][money])
+    console.log(dp[num - 1][money])
 }
 
 // H16(1000,5,dpTable2)
+
+let dataF: any = [
+    'A10', 'S20', 'W10', 'D30', 'X', 'A1A', 'B10A11', '', 'A10'
+];
+let exec = /^[ABCD]\d{1,2}$/
+let start = [0, 0];
+const HJ17 = (): string => {
+    dataF.forEach((item: any) => {
+        if (exec.test(item)) {
+            debugger
+            switch (item[0]) {
+                case "A":
+                    start[0] -= parseInt(item.slice(1));
+                    break;
+                case "D":
+                    start[0] += parseInt(item.slice(1));
+                    break;
+                case "W":
+                    start[1] += parseInt(item.slice(1));
+                    break;
+                case "S":
+                    start[1] -= parseInt(item.slice(1));
+                    break;
+                default:
+                    return;
+            }
+        }
+    });
+    return start.join(",");
+};
+
+// console.log(HJ17());
+
+//HJ18 识别有效的IP地址和掩码并进行分类统计
+let ipList: string[] = [
+    "10.70.44.68~255.254.255.0",
+    "192.168.0.2~255.255.255.0",
+    "1.0.0.1~255.0.0.0",
+    "19..0.~255.255.255.0"
+]
+const HJ18 = () => {
+    const result = [0, 0, 0, 0, 0, 0, 0]
+    ipList.forEach((item: string) => {
+        let ipYm = item.split("~")
+        let ipRes0 = ipTrue(ipYm[0].split("."))
+        let ymRes = ymTrue(ipYm[1])
+        if (!ymRes || !ipRes0) {
+            result[5] += 1
+        } else {
+            let ipRes = ipFunc(ipYm[0])
+            switch (ipRes) {
+                case "A":
+                    result[0] += 1;
+                    break
+                case "B":
+                    result[1] += 1;
+                    break
+                case "C":
+                    result[2] += 1;
+                    break
+                case "D":
+                    result[3] += 1;
+                    break
+                case "E":
+                    result[4] += 1;
+                    break
+                case "1A":
+                    result[0] += 1;
+                    result[6] += 1;
+                    break
+                case "1B":
+                    result[1] += 1;
+                    result[6] += 1;
+                    break
+                case "1C":
+                    result[2] += 1;
+                    result[6] += 1;
+                    break
+                default:
+                    break
+            }
+        }
+    })
+    return result.join(",")
+}
+/**
+ * @function 判断非法ip ip归属 是否私有
+ * @param ip 形如172.0.0.0的字符串
+ * @return 0:非法ip string:五大类之一的名称 1：私有ip
+ */
+const ipFunc = (ip: string): number | string => {
+    let list = ip.split(".")
+    let start = parseInt(list[0])
+    if (1 <= start && start <= 126) {
+        if (start === 10) return "1A"
+        return "A"
+    } else if (128 <= start && start <= 191) {
+        if (start === 172) return "1B"
+        return "B"
+    } else if (192 <= start && start <= 223) {
+        if (start === 192) return "1C"
+        return "C"
+    } else if (224 <= start && start <= 239) {
+        return "D"
+    } else if (240 <= start && start <= 255) {
+        return "E"
+    } else {
+        return -1
+    }
+}
+const ymTrue = (ym: string) => {
+    let list = ym.split(".")
+    for (let i = 0; i < 4; i++) {
+        list[i] = parseInt(list[i]).toString(2)
+    }
+    let res = list.join("")
+    let per = 0
+    let end = res.length - 1
+    for (let i = 0; i <= end; i++) {
+        if (res[i] === "0") {
+            debugger
+            per = i
+            break
+        }
+    }
+    for (let i = end; i >= 0; i--) {
+        if (res[i] === "1") {
+            debugger
+            end = i
+            break
+        }
+    }
+    return per - end === 1
+}
+//判断掩码是否非法
+const ipTrue = (list: Array<any>) => {
+    let res = list.length === 4
+    if (res) {
+        for (let i = 0; i < 4; i++) {
+            if (list[i] === "" || parseInt(list[i]) > 255) {
+                res = false
+                break
+            }
+        }
+    }
+    return res
+}
+
+console.log(HJ18())

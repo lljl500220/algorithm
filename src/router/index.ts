@@ -13,6 +13,10 @@ const routes: RouteRecordRaw[] = [
         path: '/HW',
         name: 'HW',
         component: () => import('../components/HelloWorld.vue')
+    }, {
+        path: '/map',
+        name: 'map',
+        component: () => import('../components/map.vue')
     }
 ]
 const router: Router = createRouter({

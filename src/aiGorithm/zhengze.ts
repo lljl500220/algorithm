@@ -44,6 +44,5 @@ console.log(hd2.match(/.+/))
 
 
 //练习
-
-export default {}
-
+const A10 = "A10"
+console.log(/^[ABCD]\d{1,2}$/.test(A10))
