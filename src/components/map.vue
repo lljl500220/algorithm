@@ -46,9 +46,13 @@ const option = reactive({
       name: "数据名称",
       type: "map",
       map: "贵州",
+      label: {show: true,formatter:(param:any)=>{
+          if (param.name.length>4){
+            return param.name.slice(0,4)+"\n"+param.name.slice(4)
+          }
+      }},
       itemStyle: {
-        normal: {label: {show: true, fontSize: 5},},
-        emphasis: {label: {show: true}, areaColor: "#019FE9"},
+        emphasis: {areaColor: "#019FE9"},
       },
       layoutCenter: ["50%", "50%"], //位置
       layoutSize: "100%",

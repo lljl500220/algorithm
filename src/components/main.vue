@@ -20,6 +20,9 @@ function drop(ev:any) {
   let data = ev.dataTransfer.getData("Text");
   ev.target.appendChild(document.getElementById(data));
   setupPosition(data,50,50)
+  let arr1 = prompt("输入字符串")
+// @ts-ignore
+  console.log(arr1.split("\\"))
 }
 
 function setupPosition(target:string,left:number,top:number){

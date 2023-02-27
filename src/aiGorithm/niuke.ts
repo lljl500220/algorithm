@@ -1,3 +1,4 @@
+const readline = require("readline")
 /**
  * tips:js中 ‘/’ 运算发与java不同，java中会返回对结果的向下取整，但是js会得到浮点小数
  * 这是由于js的数字类型只有number而没有int，float等导致的，所以需要数字运算手动向下取整。
@@ -784,15 +785,53 @@ const HJ17 = (): string => {
 
 //HJ18 识别有效的IP地址和掩码并进行分类统计
 let ipList: string[] = [
-    "10.70.44.68~255.254.255.0",
-    "192.168.0.2~255.255.255.0",
-    "1.0.0.1~255.0.0.0",
-    "19..0.~255.255.255.0"
+    "225.240.129.203~255.110.255.255",
+    "183.181.49.4~255.0.0.0",
+    "172.177.113.45~255.0.0.0",
+    "176.134.46.246~255.0.0.0",
+    "153.63.21.56~255.255.58.255",
+    "23.135.167.228~255.0.0.0",
+    "204.58.47.149~255.0.0.0",
+    "113.33.181.46~255.255.255.0",
+    "73.245.52.119~255.255.154.0",
+    "23.214.47.71~255.0.0.0",
+    "139.124.188.91~255.255.255.100",
+    "142.94.192.197~255.0.0.0",
+    "53.173.252.202~255.0.0.0",
+    "127.201.56.50~255.255.111.255",
+    "118.251.84.111~255.0.0.0",
+    "130.27.73.170~255.0.0.0",
+    "253.237.54.56~255.86.0.0",
+    "64.189.222.111~255.255.255.139",
+    "148.77.44.147~255.0.0.0",
+    "59.213.5.253~255.255.0.0",
+    "3.52.119.131~255.255.0.0",
+    "213.208.164.145~255.255.0.0",
+    "24.22.21.206~255.255.90.255",
+    "89.43.34.31~255.0.0.0",
+    "9.64.214.75~255.0.0.0",
+    "110.156.20.173~255.153.0.0",
+    "71.183.242.53~255.255.0.0",
+    "119.152.129.100~255.0.0.0",
+    "38.187.119.201~255.0.0.0",
+    "73.81.221.180~255.255.255.255",
+    "73.198.13.199~255.0.15.0",
+    "99.42.142.145~255.255.255.0",
+    "196.121.115.160~255.0.0.0",
+    "226.30.29.206~255.0.0.0",
+    "244.248.31.171~255.255.255.255",
+    "59.116.159.246~255.0.0.0",
+    "121.124.37.157~255.0.0.226",
+    "103.42.94.71~255.255.0.0",
+    "125.88.217.249~255.255.74.255",
+    "73.44.250.101~255.255.255.0"
 ]
 const HJ18 = () => {
     const result = [0, 0, 0, 0, 0, 0, 0]
-    ipList.forEach((item: string) => {
+    for (const item of ipList) {
         let ipYm = item.split("~")
+        let start = ipYm[0].split(".")[0]
+        if (start === "127" || start === "0") continue
         let ipRes0 = ipTrue(ipYm[0].split("."))
         let ymRes = ymTrue(ipYm[1])
         if (!ymRes || !ipRes0) {
@@ -831,7 +870,7 @@ const HJ18 = () => {
                     break
             }
         }
-    })
+    }
     return result.join(",")
 }
 /**
@@ -843,13 +882,19 @@ const ipFunc = (ip: string): number | string => {
     let list = ip.split(".")
     let start = parseInt(list[0])
     if (1 <= start && start <= 126) {
-        if (start === 10) return "1A"
+        if (start === 10) {
+            return  "1A"
+        }
         return "A"
     } else if (128 <= start && start <= 191) {
-        if (start === 172) return "1B"
+        if (start === 172) {
+            return ipPrivate(ip,1)
+        }
         return "B"
     } else if (192 <= start && start <= 223) {
-        if (start === 192) return "1C"
+        if (start === 192) {
+            return ipPrivate(ip,2)
+        }
         return "C"
     } else if (224 <= start && start <= 239) {
         return "D"
@@ -857,6 +902,18 @@ const ipFunc = (ip: string): number | string => {
         return "E"
     } else {
         return -1
+    }
+}
+const ipPrivate = (ip:string,type:number):string => {
+  let list = ip.split('.')
+    if (type === 1){
+        if (16<= parseInt(list[1]) && parseInt(list[1]) <= 31){
+            return "1B"
+        }else return "B"
+    }else {
+        if (parseInt(list[1]) === 168) {
+            return "1C"
+        } else return "C"
     }
 }
 const ymTrue = (ym: string) => {
@@ -876,7 +933,6 @@ const ymTrue = (ym: string) => {
     }
     for (let i = end; i >= 0; i--) {
         if (res[i] === "1") {
-            debugger
             end = i
             break
         }
@@ -897,4 +953,25 @@ const ipTrue = (list: Array<any>) => {
     return res
 }
 
-console.log(HJ18())
+// console.log(HJ18())
+let rl = readline.createInterface({
+    input:process.stdin,
+    output:process.stdout
+})
+
+const HJ19 = (data:any) => {
+
+}
+
+let map = new Map()
+
+rl.on("line",(line:string)=>{
+    console.log(line.split(" ")[0].split("\\"))
+    let temp:any = line.split(" ")
+    let name = temp[0].split("\\").pop()
+    let key = name.substring(name.lenght-16) + temp[2].toString()
+    map.set(key,map.get(key))
+})
+rl.on("close",()=>{
+    console.log("close")
+})
